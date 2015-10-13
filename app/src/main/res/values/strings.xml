@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HomeTest</string>
+    <string name="btn_get_change">Get Change</string>
+    <string name="dollar_cuantity">Amount of dollar</string>
+    <string name="title_activity_chart">ChartActivity</string>
+    <string name="question">How many dollars do you want to change?</string>
+</resources>

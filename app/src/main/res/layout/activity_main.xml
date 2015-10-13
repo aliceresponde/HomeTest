@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:weightSum="1">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:digits="1234567890"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+        android:hint="@string/dollar_cuantity"
+        android:gravity="center_vertical|center_horizontal"
+        android:ems="10"
+        android:id="@+id/et_dollar"
+        android:layout_above="@+id/btn_change"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_change"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@android:color/white"
+        android:text="@string/btn_get_change"
+        android:onClick="did_tap_get_change"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/question"
+        android:textSize="20dp"
+        android:gravity="center"
+
+        android:id="@+id/tv_question"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp" />
+
+</RelativeLayout>
