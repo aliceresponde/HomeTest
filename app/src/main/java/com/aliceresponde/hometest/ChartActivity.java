@@ -1,9 +1,13 @@
 package com.aliceresponde.hometest;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,23 +44,33 @@ public class ChartActivity extends AppCompatActivity {
     public MyCurrency currency;
     BarChart chart;
     float dollar_amount;
-
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
+        context = getBaseContext();
 
-        chart = new BarChart(ChartActivity.this);
-        setContentView(chart);
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        Bundle extras = getIntent().getExtras();
-        dollar_amount = extras.getFloat("dollar_amount");
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
-        currency = new MyCurrency();
-        try {
-              updateCurrency();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(isConnected){
+            chart = new BarChart(ChartActivity.this);
+            setContentView(chart);
+
+            Bundle extras = getIntent().getExtras();
+            dollar_amount = extras.getFloat("dollar_amount");
+            currency = new MyCurrency();
+            try {
+                  updateCurrency();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Toast.makeText(context, "Verify your internet access", Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 
@@ -127,7 +141,6 @@ public class ChartActivity extends AppCompatActivity {
         entries.add(new BarEntry(Float.parseFloat(df.format(dollar_amount*currency.getValue_BRL())), 1));
         entries.add(new BarEntry(Float.parseFloat(df.format(dollar_amount*currency.getValue_GBP())), 2));
         entries.add(new BarEntry(Float.parseFloat(df.format(dollar_amount*currency.getValue_JPY())), 3));
-        Log.e("JP", currency.getValue_JPY()+"");
 
         //Subtitle
         BarDataSet dataset = new BarDataSet(entries, "Convertion of " + dollar_amount +" dollars");
